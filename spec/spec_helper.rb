@@ -12,3 +12,9 @@ ActiveRecord::Schema.define do
     t.datetime :activated_at
   end
 end
+
+RSpec.configure do |config|
+  config.before do
+    Time.zone = "America/New_York"
+  end
+end
