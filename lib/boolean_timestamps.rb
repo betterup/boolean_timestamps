@@ -1,5 +1,6 @@
 require 'boolean_timestamps/version'
 require 'active_support/concern'
+require 'active_support/lazy_load_hooks'
 
 module BooleanTimestamps
   extend ActiveSupport::Concern
