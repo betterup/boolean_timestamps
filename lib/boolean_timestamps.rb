@@ -1,5 +1,6 @@
 require 'boolean_timestamps/version'
 require 'active_support/concern'
+require 'active_support/lazy_load_hooks'
 
 module BooleanTimestamps
   extend ActiveSupport::Concern
@@ -15,7 +16,7 @@ module BooleanTimestamps
           send("#{timestamp_attribute}?")
         end
         define_method "#{boolean_attribute}=" do |value|
-          boolean_value = ActiveRecord::Type::Boolean.new.type_cast_from_database(value)
+          boolean_value = ActiveRecord::Type::Boolean.new.type_cast(value)
           unless boolean_value && send("#{timestamp_attribute}?")
             timestamp = boolean_value ? Time.zone.now : nil
             send("#{timestamp_attribute}=", timestamp)
