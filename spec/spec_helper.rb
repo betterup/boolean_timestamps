@@ -11,6 +11,10 @@ ActiveRecord::Schema.define do
   create_table :users, force: true do |t|
     t.datetime :activated_at
   end
+
+  create_table :wars, force: true do |t|
+    t.datetime :massive_attack_at
+  end
 end
 
 RSpec.configure do |config|

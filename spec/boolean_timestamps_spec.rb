@@ -5,6 +5,10 @@ describe BooleanTimestamps do
     boolean_timestamps :activated_at
   end
 
+  class War < ActiveRecord::Base
+    boolean_timestamps :massive_attack_at
+  end
+
   it 'has a version number' do
     expect(BooleanTimestamps::VERSION).not_to be nil
   end
@@ -28,6 +32,11 @@ describe BooleanTimestamps do
       user = User.new(activated_at: DateTime.new)
       user.activated = false
       expect(user.activated_at).to be_nil
+    end
+    it 'works with properties that have _at in them' do
+      war = War.new
+      expect(war).to respond_to(:massive_attack?)
+      expect(war).to respond_to(:massive_attack=)
     end
   end
 end
