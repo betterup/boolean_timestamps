@@ -8,7 +8,7 @@ module BooleanTimestamps
   class_methods do
     def boolean_timestamps(*attributes)
       attributes.each do |timestamp_attribute|
-        boolean_attribute = timestamp_attribute.to_s.gsub('_at', '')
+        boolean_attribute = timestamp_attribute.to_s.gsub(/_at\z/, '')
         define_method boolean_attribute do
           send("#{timestamp_attribute}?")
         end
