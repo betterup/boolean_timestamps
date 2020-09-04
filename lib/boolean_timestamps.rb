@@ -22,6 +22,13 @@ module BooleanTimestamps
             send("#{timestamp_attribute}=", timestamp)
           end
         end
+        scope boolean_attribute, lambda { |value = true|
+          if value
+            where.not(timestamp_attribute => nil)
+          else
+            where(timestamp_attribute => nil)
+          end
+        }
       end
     end
   end
