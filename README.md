@@ -34,6 +34,17 @@ puts post.published_at
 #=> nil
 ```
 
+This also adds a scope for each timestamps column
+
+```ruby
+Post.published
+#=> [#<Post published_at: Fri, 04 Sep 2020 18:16:38 UTC +00:00>]
+
+Post.published(false)
+#=> [#<Post published_at: nil>]
+```
+
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
