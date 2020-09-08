@@ -1,5 +1,18 @@
----
-# skip circle ci setting up database since we use in memory
-database:
-  override:
-    - echo "Using in-memory database..."
+version: 2.1 # Use 2.1 to enable using orbs and other features.
+
+# Declare the orbs that we'll use in our config.
+# read more about orbs: https://circleci.com/docs/2.0/using-orbs/
+orbs:
+  ruby: circleci/ruby@1.0 
+
+jobs:
+  build: # our first job, named "build"
+    docker:
+      - image: cimg/ruby:2.7-node # use a tailored CircleCI docker image.
+    steps:
+      - checkout
+      - ruby/install-deps # use the ruby orb to install dependencies
+      - ruby/rspec-test
+    environment:
+      BUNDLE_JOBS: "3"
+      BUNDLE_RETRY: "3"
