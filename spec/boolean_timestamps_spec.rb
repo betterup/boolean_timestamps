@@ -38,5 +38,10 @@ describe BooleanTimestamps do
       expect(war).to respond_to(:massive_attack?)
       expect(war).to respond_to(:massive_attack=)
     end
+    it 'adds a scope for the timestamp' do
+      expect(User.activated.to_sql).to include('activated_at" IS NOT NULL')
+      expect(User.activated(true).to_sql).to include('activated_at" IS NOT NULL')
+      expect(User.activated(false).to_sql).to include('activated_at" IS NULL')
+    end
   end
 end
