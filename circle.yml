@@ -11,6 +11,8 @@ jobs:
       - image: cimg/ruby:2.7-node # use a tailored CircleCI docker image.
     steps:
       - checkout
+      - run: sudo apt update
+      - run: sudo apt install -y libsqlite3-dev zlib1g-dev
       - ruby/install-deps # use the ruby orb to install dependencies
       - ruby/rspec-test
     environment:
