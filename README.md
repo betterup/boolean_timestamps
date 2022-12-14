@@ -20,6 +20,31 @@ class Post < ActiveRecord::Base
 end
 ```
 
+### Option: Generated scope
+
+By default, this adds a scope for each timestamp column:
+
+```ruby
+Post.published
+#=> [#<Post published_at: Fri, 04 Sep 2020 18:16:38 UTC +00:00>]
+
+Post.published(false)
+#=> [#<Post published_at: nil>]
+```
+
+To skip defining the scope, set the `:scopes` option to `false` when calling `boolean_timestamps`.
+
+```ruby
+class Post < ActiveRecord::Base
+  boolean_timestamps :published_at, scopes: false
+end
+```
+```ruby
+Post.respond_to?(:published)
+#=> false
+```
+
+
 ## Example
 
 ```ruby
@@ -33,17 +58,6 @@ post.update!(published: false)
 puts post.published_at
 #=> nil
 ```
-
-This also adds a scope for each timestamps column
-
-```ruby
-Post.published
-#=> [#<Post published_at: Fri, 04 Sep 2020 18:16:38 UTC +00:00>]
-
-Post.published(false)
-#=> [#<Post published_at: nil>]
-```
-
 
 ## Development
 
