@@ -5,6 +5,10 @@ describe BooleanTimestamps do
     boolean_timestamps :activated_at
   end
 
+  class UserWithoutScopes < ActiveRecord::Base
+    boolean_timestamps :activated_at, scopes: false
+  end
+
   class War < ActiveRecord::Base
     boolean_timestamps :massive_attack_at
   end
@@ -42,6 +46,9 @@ describe BooleanTimestamps do
       expect(User.activated.to_sql).to include('activated_at" IS NOT NULL')
       expect(User.activated(true).to_sql).to include('activated_at" IS NOT NULL')
       expect(User.activated(false).to_sql).to include('activated_at" IS NULL')
+    end
+    it 'does not add a scope when scopes option is false' do
+      expect(UserWithoutScopes.respond_to?(:activated)).to be false
     end
   end
 end
